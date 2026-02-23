@@ -9,10 +9,23 @@ import api, { endpoints } from './api';
 import { MapPin, Navigation, AlertTriangle, ScanLine, X } from 'lucide-react';
 
 const MOCK_DESTINATIONS = [
-    { id: 'shopA', name: 'Coffee Shop', type: 'amenity' },
-    { id: 'exit1', name: 'Emergency Exit', type: 'safety' },
-    { id: 'hallway2', name: 'Central Hallway', type: 'corridor' },
-    { id: 'stairs', name: 'Stairs to F2', type: 'transit' }
+    { id: 'n_therm', name: 'Thermal Engineering Lab II', type: 'room' },
+    { id: 'n_mach', name: 'Machine Tools Lab II', type: 'room' },
+    { id: 'n_mech_fac', name: 'Mech Faculty Room', type: 'room' },
+    { id: 'n_mhod', name: 'Mech HOD', type: 'room' },
+    { id: 'n_leca', name: 'Lecture Hall A', type: 'room' },
+    { id: 'n_lecb', name: 'Lecture Hall B', type: 'room' },
+    { id: 'n_lecc', name: 'Lecture Hall C', type: 'room' },
+    { id: 'n_lecd', name: 'Lecture Hall D', type: 'room' },
+    { id: 'n_fc', name: 'Faculty Center', type: 'room' },
+    { id: 'n_facroom', name: 'Faculty Room', type: 'room' },
+    { id: 'n_ahod', name: 'AI HOD', type: 'room' },
+    { id: 'n_gt', name: 'Girls Toilet', type: 'amenity' },
+    { id: 'n_bt1', name: 'Boys Toilet 1', type: 'amenity' },
+    { id: 'n_bt2', name: 'Boys Toilet 2', type: 'amenity' },
+    { id: 'n_lstairs', name: 'Left Stairs', type: 'transit' },
+    { id: 'n_rstairs', name: 'Right Stairs', type: 'transit' },
+    { id: 'n_stairs_p', name: 'Main Stairs (Right Block)', type: 'transit' }
 ];
 
 const LoadingOverlay = () => (
@@ -105,8 +118,8 @@ const HomePage = ({ onStartNavigation, onEmergency }) => {
                         onClick={handleNavigate}
                         disabled={!selectedDest}
                         className={`flex flex-col items-center justify-center gap-3 p-6 rounded-xl shadow-lg shadow-indigo-200/50 transition-all ${selectedDest
-                                ? 'bg-indigo-600 text-white active:scale-95'
-                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            ? 'bg-indigo-600 text-white active:scale-95'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
                     >
                         <Navigation size={32} className={selectedDest ? "animate-pulse" : ""} />
