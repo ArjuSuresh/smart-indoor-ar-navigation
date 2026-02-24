@@ -1,34 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5Qrcode } from 'html5-qrcode';
 import { X, Camera } from 'lucide-react';
 
 const QRScanner = ({ onScanSuccess, onClose }) => {
     const scannerRef = useRef(null);
 
     useEffect(() => {
-        let scanner;
-        const config = {
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            aspectRatio: 1.0
-        };
+        const html5QrCode = new Html5Qrcode("qr-reader");
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-        scanner = new Html5QrcodeScanner("qr-reader", config, false);
-
-        scanner.render(
+        html5QrCode.start(
+            { facingMode: "environment" },
+            config,
             (decodedText) => {
                 onScanSuccess(decodedText);
-                scanner.clear();
+                html5QrCode.stop().catch(console.error);
             },
-            (error) => {
-                // console.warn(error);
+            (errorMessage) => {
+                // Ignore background scanning errors
             }
-        );
+        ).catch((err) => {
+            console.error("Failed to start camera:", err);
+            alert("Camera permission is required to scan QR codes. Please allow access in your browser settings.");
+        });
 
         return () => {
-            scanner.clear().catch(error => {
-                console.error("Failed to clear html5-qrcode scanner. ", error);
-            });
+            if (html5QrCode.isScanning) {
+                html5QrCode.stop().catch(console.error);
+            }
         };
     }, [onScanSuccess]);
 
